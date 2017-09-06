@@ -1,0 +1,51 @@
+<h1>Example App: Home</h1>
+<nav id="pager" data-total-page="{{totalPage}}" data-current-page="{{currentPage}}">
+  <!--<ol>-->
+  <!--<li><a href="?page=1">1</a></li>-->
+  <!--<li><a href="?page=2">2</a></li>-->
+  <!--<li><a href="?page=3">3</a></li>-->
+  <!--<li><a href="?page=4">4</a></li>-->
+  <!--<li><a href="?page=5">5</a></li>-->
+  <!--</ol>-->
+</nav>
+
+共<span id="totalPage">{{totalPage}}</span>页|
+当前是第<span id="currentPage">{{currentPage}}</span>页
+<!--js获取总页数、当前页-->
+<!--方法一-->
+<!--parseInt(document.getElementById('totalPage').textContent)-->
+
+<!--方法二-->
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+<script>
+  let $pager = $('#pager')
+  let pager = $pager[0]
+  let {totalPage, currentPage}=pager.dataset
+  totalPage = window.parseInt(totalPage, 10)
+  currentPage = window.parseInt(currentPage, 10)
+  console.log(totalPage, currentPage)
+
+  let $ol = $('<ol/>')
+  for (let i = 0; i < totalPage; i++) {
+    let $li
+    if (i+1===currentPage) {
+      $li = $(`<li><span>${i + 1}</span></li>`)
+    } else {
+      $li = $(`<li><a href="?page=${i + 1}">${i + 1}</li>`)
+    }
+    $ol.append($li)
+  }
+  $pager.append($ol)
+</script>
+<hr>
+{{#each articles}}
+  <article>
+    <h1>{{title}}</h1>
+    <p>{{content}}</p>
+  </article>
+{{/each}}
+
+
+
+
+
